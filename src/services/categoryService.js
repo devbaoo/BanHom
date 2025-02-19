@@ -101,10 +101,46 @@ const deleteCategory = async (categoryId) => {
     throw e;
   }
 };
+let  getCategoryTree = async () => {
+  // Lấy tất cả các danh mục với các trường cần thiết
+  const categories = await db.Category.findAll({
+    attributes: ['id', 'name', 'parentId']
+  });
+
+  // Tạo map để xây dựng cây
+  let categoryMap = {};
+  categories.forEach(category => {
+    // Khởi tạo đối tượng với các thuộc tính rõ ràng
+    categoryMap[category.id] = { 
+      id: category.id, 
+      name: category.name, 
+      parentId: category.parentId, 
+      subcategories: [] 
+    };
+  });
+
+  // Xây dựng cây phân cấp
+  let tree = [];
+  categories.forEach(category => {
+    if (category.parentId) {
+      // Nếu có parentId, thêm vào danh mục cha
+      if (categoryMap[category.parentId]) {
+        categoryMap[category.parentId].subcategories.push(categoryMap[category.id]);
+      }
+    } else {
+      // Nếu không có parentId -> danh mục gốc
+      tree.push(categoryMap[category.id]);
+    }
+  });
+
+  return tree;
+};
+
 
 module.exports = {
   createCategory,
   updateCategory,
   getAllCategories,
   deleteCategory,
+  getCategoryTree
 };

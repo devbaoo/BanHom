@@ -183,7 +183,26 @@ let deleteProduct = async (productId) => {
     });
 };
 
-
+let getProducts = async (filter) => {
+    let whereClause = {};
+  
+    if (filter.categoryId) {
+      whereClause.categoryId = Number(filter.categoryId);
+    }
+  
+    const products = await db.Product.findAll({
+      where: whereClause,
+      raw: true,
+      include: [
+        {
+          model: db.Category,
+          as: 'category',
+          attributes: ['id', 'name', 'parentId']
+        }
+      ]
+    });
+    return products;
+  };
 
 
 module.exports = {
@@ -191,5 +210,6 @@ module.exports = {
     getAllProducts: getAllProducts,
     getDetailProduct: getDetailProduct,
     deleteProduct: deleteProduct,
-    updateProduct: updateProduct
+    updateProduct: updateProduct,
+    getProducts: getProducts,
 };

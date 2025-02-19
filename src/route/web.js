@@ -33,12 +33,14 @@ let initWebRoutes = (app) => {
         "/api/update-product",
         upload.single("imageFile"),
         productController.updateProduct);
+    router.get("/api/get-products", productController.getProducts);
 
     // Category API
     router.post("/api/create-category", categoryController.createCategory);
     router.get("/api/get-all-categories", categoryController.getAllCategories);
     router.put("/api/update-category", categoryController.updateCategory);
     router.delete("/api/delete-category/:categoryId", categoryController.deleteCategory);
+    router.get("/api/get-category-tree", categoryController.getCategoryTree);
 
     // Statistic API
     router.get('/page-view-stats', statisticController.getPageViewStats);

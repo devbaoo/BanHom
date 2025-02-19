@@ -51,10 +51,23 @@ let deleteCategory = async (req, res) => {
         });
     }
 }
+let getCategoryTree = async (req, res) => {
+    try {
+        let categories = await categoryService.getCategoryTree();
+        return res.status(200).json(categories);
+    } catch (error) {
+        console.error('Error:', error);
+        return res.status(500).json({
+            errCode: 500,
+            message: 'Internal Server Error'
+        });
+    }
+}
 
 module.exports = {
     getAllCategories: getAllCategories,
     createCategory: createCategory,
     updateCategory: updateCategory,
-    deleteCategory: deleteCategory
+    deleteCategory: deleteCategory,
+    getCategoryTree: getCategoryTree
 }
