@@ -21,8 +21,8 @@ module.exports = {
       date: {
         type: Sequelize.BIGINT,
       },
-      price: {
-        type: Sequelize.FLOAT,
+      url: {
+        type: Sequelize.STRING,
       },
       categoryId: {
         type: Sequelize.INTEGER,

@@ -6,7 +6,7 @@ let createProduct = async (data, file) => {
     return new Promise(async (resolve, reject) => {
         try {
             // Kiểm tra các trường cần thiết
-            if (!data.name || !data.price || !data.description || !data.date) {
+            if (!data.name || !data.url || !data.description || !data.date) {
                 resolve({
                     errCode: 1,
                     errMessage: "Missing required fields",
@@ -33,7 +33,7 @@ let createProduct = async (data, file) => {
                 image_url: imageUrl,
                 name: data.name,
                 description: data.description,
-                price: data.price,
+                url: data.url,
                 date: data.date,
                 categoryId: data.categoryId,
             });
@@ -81,7 +81,7 @@ let updateProduct = async (data, file) => {
                 }
             }
 
-            if (!data.name || !data.price || !data.description || !data.date) {
+            if (!data.name || !data.url || !data.description || !data.date) {
                 resolve({
                     errCode: 1,
                     errMessage: "Missing required fields",
@@ -94,7 +94,7 @@ let updateProduct = async (data, file) => {
                     image_url: imageUrl,
                     name: data.name,
                     description: data.description,
-                    price: data.price,
+                    url: data.url,
                     date: data.date,
                     categoryId: data.categoryId,
                 },
