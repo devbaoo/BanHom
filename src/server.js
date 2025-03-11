@@ -6,12 +6,8 @@ import db from "./models/index";
 import cors from "cors";
 require("dotenv").config();
 
-
-
-
 let app = express();
-const trackPageView = require('./middleware/accessLogger');
-
+const trackPageView = require("./middleware/accessLogger");
 
 // Configure CORS
 // CORS Configuration
@@ -30,8 +26,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
-
 
 // Config app
 // Use express's built-in JSON body parser
@@ -43,10 +37,8 @@ viewEngine(app);
 initWebRoutes(app);
 connectDB();
 
-
 let port = process.env.PORT || 8080; // Port configuration
 
 app.listen(port, () => {
-    console.log("Backend Node.js is running on the port: " + port);
+  console.log("Backend Node.js is running on the port: " + port);
 });
-
