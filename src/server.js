@@ -14,7 +14,23 @@ const trackPageView = require('./middleware/accessLogger');
 
 
 // Configure CORS
-app.use(cors());
+// CORS Configuration
+const corsOptions = {
+  origin: [
+    "http://localhost:3001",
+    "http://localhost:5000",
+    "http://localhost:5173",
+    "https://rytems.com",
+    "https://booking-table-phi.vercel.app",
+    "https://www.rytems.com",
+  ],
+  methods: ["GET", "POST", "PATCH", "DELETE", "PUT"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 
 // Config app
